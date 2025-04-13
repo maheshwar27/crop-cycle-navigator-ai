@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,6 +53,32 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				agricultural: {
+					50: '#f3f8ee',
+					100: '#e4efd9',
+					200: '#cae0b8',
+					300: '#a7cb8c',
+					400: '#84b361',
+					500: '#659a42',
+					600: '#4d7c0f',
+					700: '#3c5e22',
+					800: '#334a21',
+					900: '#2b3e1f',
+					950: '#122200',
+				},
+				earth: {
+					50: '#faf6f0',
+					100: '#f2eada',
+					200: '#e6d3b5',
+					300: '#d8b78a',
+					400: '#cba069',
+					500: '#c28e51',
+					600: '#a16207',
+					700: '#8c5934',
+					800: '#78350f',
+					900: '#5d3d2a',
+					950: '#341f11',
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -84,11 +111,42 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'spin-slow': {
+					from: {
+						transform: 'rotate(0deg)'
+					},
+					to: {
+						transform: 'rotate(360deg)'
+					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+					},
+					'100%': {
+						opacity: '1',
+					},
+				},
+				'fade-out': {
+					'0%': {
+						opacity: '1',
+					},
+					'100%': {
+						opacity: '0',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'spin-slow': 'spin-slow 3s linear infinite',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'fade-out': 'fade-out 0.3s ease-out',
+			},
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				heading: ['Poppins', 'sans-serif'],
 			}
 		}
 	},
