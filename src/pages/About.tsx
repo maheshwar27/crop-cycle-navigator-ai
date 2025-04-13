@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
-import { Plant, CircleDollarSign, Clock, Sprout, BarChart3, Microscope } from 'lucide-react';
+import { Leaf, CircleDollarSign, Clock, Sprout, BarChart3, Microscope } from 'lucide-react';
 
 const About = () => {
   return (
@@ -42,7 +42,7 @@ const About = () => {
                 <Card className="card-agricultural">
                   <CardContent className="p-6 flex items-start">
                     <div className="h-10 w-10 rounded-full bg-agricultural-100 flex items-center justify-center mr-4 flex-shrink-0">
-                      <Plant className="h-5 w-5 text-agricultural-600" />
+                      <Leaf className="h-5 w-5 text-agricultural-600" />
                     </div>
                     <div>
                       <h3 className="font-medium text-agricultural-700 text-lg mb-2">Optimized Crop Selection</h3>

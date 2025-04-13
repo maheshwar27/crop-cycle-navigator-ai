@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent } from './ui/card';
-import { Plant, Database, LineChart, Sprout } from 'lucide-react';
+import { Leaf, Database, LineChart, Sprout } from 'lucide-react';
 
 const HowItWorks: React.FC = () => {
   return (
@@ -38,7 +38,7 @@ const HowItWorks: React.FC = () => {
         <Card className="card-agricultural">
           <CardContent className="p-6 flex flex-col items-center text-center">
             <div className="h-12 w-12 rounded-full bg-agricultural-100 flex items-center justify-center mb-4">
-              <Plant className="h-6 w-6 text-agricultural-600" />
+              <Leaf className="h-6 w-6 text-agricultural-600" />
             </div>
             <h3 className="font-medium text-agricultural-700 text-lg mb-2">Cycle Optimization</h3>
             <p className="text-sm text-gray-600">
