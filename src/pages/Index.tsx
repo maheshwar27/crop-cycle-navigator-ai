@@ -6,77 +6,26 @@ import InputForm from '@/components/InputForm';
 import ResultsSection from '@/components/ResultsSection';
 import HowItWorks from '@/components/HowItWorks';
 import { useToast } from "@/hooks/use-toast";
-
-// Mock data to simulate API response
-const mockResultData = {
-  cycles: [
-    {
-      id: 1,
-      sequence: ["Rice", "Maize", "Wheat"],
-      durations: [120, 95, 130],
-      totalTime: 345,
-      investmentUsed: 45000,
-      budgetRatio: 0.9,
-      totalYieldValue: 78500,
-      totalYieldKg: 8200,
-      updatedNutrients: {
-        nitrogen: 75.2,
-        phosphorous: 42.1,
-        potassium: 60.8,
-      },
-      reasoning: "This cycle was chosen because rice thrives in your soil's high nitrogen content, followed by maize which helps restore soil structure. Wheat completes the cycle by utilizing the remaining nutrients efficiently. This sequence maximizes yield while maintaining soil health over the specified duration."
-    },
-    {
-      id: 2,
-      sequence: ["Soybean", "Potato", "Cotton"],
-      durations: [100, 110, 160],
-      totalTime: 370,
-      investmentUsed: 38000,
-      budgetRatio: 0.76,
-      totalYieldValue: 65000,
-      totalYieldKg: 6800,
-      updatedNutrients: {
-        nitrogen: 82.5,
-        phosphorous: 39.7,
-        potassium: 54.3,
-      },
-      reasoning: "This alternative cycle starts with soybeans, which add nitrogen to your soil naturally. Potatoes then benefit from this nitrogen boost, and cotton finalizes the cycle with its deep roots helping improve soil structure. This sequence uses less investment but provides a slightly lower yield."
-    },
-    {
-      id: 3,
-      sequence: ["Sugarcane", "Pulses"],
-      durations: [210, 90],
-      totalTime: 300,
-      investmentUsed: 42000,
-      budgetRatio: 0.84,
-      totalYieldValue: 72000,
-      totalYieldKg: 9500,
-      updatedNutrients: {
-        nitrogen: 68.9,
-        phosphorous: 45.2,
-        potassium: 58.1,
-      },
-      reasoning: "This cycle utilizes a long-duration crop (sugarcane) followed by a short-duration nitrogen-fixing crop (pulses). This combination works well with your soil's current nutrient profile and completes within your time constraints while providing a good balance between investment and returns."
-    }
-  ],
-  totalBudget: 50000
-};
+import { getCropRecommendations, FormData } from '@/services/cropRecommendationService';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [resultData, setResultData] = useState<typeof mockResultData | null>(null);
+  const [resultData, setResultData] = useState<any | null>(null); // Type will come from the service
   const { toast } = useToast();
 
-  const handleFormSubmit = (formData: any) => {
+  const handleFormSubmit = async (formData: FormData) => {
     setIsLoading(true);
-    // Simulate API call with a timeout
-    setTimeout(() => {
-      setResultData(mockResultData);
-      setIsLoading(false);
+    
+    try {
+      // Call the backend service
+      const result = await getCropRecommendations(formData);
+      setResultData(result);
+      
       toast({
         title: "Analysis Complete",
         description: "Your crop cycle recommendations are ready!",
       });
+      
       // Scroll to results
       setTimeout(() => {
         const resultsElement = document.getElementById("results-section");
@@ -84,7 +33,16 @@ const Index = () => {
           resultsElement.scrollIntoView({ behavior: 'smooth' });
         }
       }, 300);
-    }, 3000);
+    } catch (error) {
+      console.error("Error getting recommendations:", error);
+      toast({
+        title: "An error occurred",
+        description: "Failed to get crop recommendations. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

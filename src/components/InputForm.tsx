@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -8,29 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Card, CardContent } from './ui/card';
 import { RefreshCw, SendHorizonal } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
-
-interface FormData {
-  // Soil Nutrients
-  nitrogen: string;
-  phosphorous: string;
-  potassium: string;
-  organicCarbon: string;
-  sulphur: string;
-  iron: string;
-  zinc: string;
-  copper: string;
-  boron: string;
-  manganese: string;
-  
-  // Soil Properties
-  soilType: string;
-  soilPH: string;
-  electricalConductivity: string;
-  
-  // User Constraints
-  cultivationDuration: string;
-  investmentBudget: string;
-}
+import { FormData } from '@/services/cropRecommendationService';
 
 interface InputFormProps {
   onSubmit: (data: FormData) => void;

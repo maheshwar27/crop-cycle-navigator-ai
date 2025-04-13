@@ -37,7 +37,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ data }) => {
   // Format data for chart
   const chartData = data.cycles.map((cycle) => ({
     name: `Cycle ${cycle.id}`,
-    profit: cycle.totalYieldValue,
+    profit: cycle.totalYieldValue - cycle.investmentUsed, // Calculate actual profit
     yield: cycle.totalYieldKg,
     time: cycle.totalTime,
     investment: cycle.investmentUsed,
@@ -51,13 +51,19 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ data }) => {
       
       <Tabs defaultValue="cycle1" className="w-full">
         <TabsList className="grid grid-cols-3 mb-6">
-          <TabsTrigger value="cycle1" className="data-[state=active]:bg-agricultural-100 data-[state=active]:text-agricultural-700">Cycle 1</TabsTrigger>
-          <TabsTrigger value="cycle2" className="data-[state=active]:bg-agricultural-100 data-[state=active]:text-agricultural-700">Cycle 2</TabsTrigger>
-          <TabsTrigger value="cycle3" className="data-[state=active]:bg-agricultural-100 data-[state=active]:text-agricultural-700">Cycle 3</TabsTrigger>
+          {data.cycles.map((_, index) => (
+            <TabsTrigger 
+              key={`cycle-tab-${index + 1}`} 
+              value={`cycle${index + 1}`} 
+              className="data-[state=active]:bg-agricultural-100 data-[state=active]:text-agricultural-700"
+            >
+              Cycle {index + 1}
+            </TabsTrigger>
+          ))}
         </TabsList>
 
         {data.cycles.map((cycle, index) => (
-          <TabsContent value={`cycle${index + 1}`} key={index}>
+          <TabsContent value={`cycle${index + 1}`} key={`cycle-content-${index}`}>
             <Card className="card-agricultural">
               <CardHeader className="bg-agricultural-50 rounded-t-lg">
                 <CardTitle className="text-xl text-agricultural-700">
@@ -102,7 +108,9 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ data }) => {
                       </li>
                       <li className="flex justify-between">
                         <span className="text-earth-700">Budget Usage:</span>
-                        <span className="font-medium">{Math.round(cycle.budgetRatio * 100)}%</span>
+                        <span className={`font-medium ${cycle.budgetRatio > 1 ? 'text-red-500' : 'text-green-600'}`}>
+                          {Math.round(cycle.budgetRatio * 100)}%
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -122,7 +130,7 @@ const ResultsSection: React.FC<ResultsSectionProps> = ({ data }) => {
                       </li>
                       <li className="flex justify-between">
                         <span className="text-earth-700">ROI:</span>
-                        <span className="font-medium">
+                        <span className={`font-medium ${cycle.totalYieldValue < cycle.investmentUsed ? 'text-red-500' : 'text-green-600'}`}>
                           {Math.round((cycle.totalYieldValue / cycle.investmentUsed) * 100 - 100)}%
                         </span>
                       </li>
