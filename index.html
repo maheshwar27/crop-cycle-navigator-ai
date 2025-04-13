@@ -1,27 +1,315 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Crop Cycle Recommender</title>
-    <meta name="description" content="AI-powered crop cycle recommendations based on soil conditions" />
-    <meta name="author" content="Smart Crop Recommender" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Crop Cycle Recommender</title>
+  <meta name="description" content="AI-powered crop cycle recommendations based on soil conditions">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <a href="index.html" class="logo-link">
+              <div class="logo-icon">SC</div>
+              <span class="logo-text">Smart Crop <span class="logo-highlight">Recommender</span></span>
+            </a>
+          </div>
+          
+          <nav class="nav-desktop">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+          </nav>
+          
+          <button class="mobile-menu-button" aria-label="Toggle menu">
+            <span class="menu-icon"></span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="mobile-menu">
+        <div class="container">
+          <nav class="nav-mobile">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </header>
 
-    <meta property="og:title" content="Smart Crop Cycle Recommender" />
-    <meta property="og:description" content="AI-powered crop cycle recommendations based on soil conditions" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Main Content -->
+    <main>
+      <section class="hero-section">
+        <div class="container">
+          <div class="hero-content">
+            <h1 class="hero-title">Smart Crop Cycle Recommender</h1>
+            <p class="hero-subtitle">AI-powered recommendations for optimal crop cycles based on your soil conditions</p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="content-section">
+        <div class="container">
+          <!-- Input Form Section -->
+          <div class="card">
+            <div class="card-content">
+              <h2 class="section-title">Enter Your Farm Details</h2>
+              
+              <form id="cropRecommendationForm">
+                <div class="tabs">
+                  <div class="tab-list">
+                    <button type="button" class="tab-button active" data-tab="nutrients">Soil Nutrients</button>
+                    <button type="button" class="tab-button" data-tab="properties">Soil Properties</button>
+                    <button type="button" class="tab-button" data-tab="constraints">User Constraints</button>
+                  </div>
+                  
+                  <div class="tab-content active" id="tab-nutrients">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="nitrogen" class="form-label">Nitrogen (kg/ha) *</label>
+                        <input type="number" id="nitrogen" name="nitrogen" placeholder="Enter nitrogen value" class="form-input" min="0" step="0.01" required>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="phosphorous" class="form-label">Phosphorous (kg/ha) *</label>
+                        <input type="number" id="phosphorous" name="phosphorous" placeholder="Enter phosphorous value" class="form-input" min="0" step="0.01" required>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="potassium" class="form-label">Potassium (kg/ha) *</label>
+                        <input type="number" id="potassium" name="potassium" placeholder="Enter potassium value" class="form-input" min="0" step="0.01" required>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="organicCarbon" class="form-label">Organic Carbon (%)</label>
+                        <input type="number" id="organicCarbon" name="organicCarbon" placeholder="Enter organic carbon value" class="form-input" min="0" step="0.01">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="sulphur" class="form-label">Sulphur (ppm)</label>
+                        <input type="number" id="sulphur" name="sulphur" placeholder="Enter sulphur value" class="form-input" min="0" step="0.01">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="iron" class="form-label">Iron (ppm)</label>
+                        <input type="number" id="iron" name="iron" placeholder="Enter iron value" class="form-input" min="0" step="0.01">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="zinc" class="form-label">Zinc (ppm)</label>
+                        <input type="number" id="zinc" name="zinc" placeholder="Enter zinc value" class="form-input" min="0" step="0.01">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="copper" class="form-label">Copper (ppm)</label>
+                        <input type="number" id="copper" name="copper" placeholder="Enter copper value" class="form-input" min="0" step="0.01">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="boron" class="form-label">Boron (ppm)</label>
+                        <input type="number" id="boron" name="boron" placeholder="Enter boron value" class="form-input" min="0" step="0.01">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="manganese" class="form-label">Manganese (ppm)</label>
+                        <input type="number" id="manganese" name="manganese" placeholder="Enter manganese value" class="form-input" min="0" step="0.01">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="tab-content" id="tab-properties">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="soilType" class="form-label">Soil Type *</label>
+                        <select id="soilType" name="soilType" class="form-select" required>
+                          <option value="" disabled selected>Select soil type</option>
+                          <option value="loamy">Loamy</option>
+                          <option value="sandy">Sandy</option>
+                          <option value="clay">Clay</option>
+                          <option value="silty">Silty</option>
+                          <option value="peaty">Peaty</option>
+                          <option value="chalky">Chalky</option>
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="soilPH" class="form-label">Soil pH</label>
+                        <input type="number" id="soilPH" name="soilPH" placeholder="Enter soil pH" class="form-input" min="0" max="14" step="0.1">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="electricalConductivity" class="form-label">Electrical Conductivity (dS/m)</label>
+                        <input type="number" id="electricalConductivity" name="electricalConductivity" placeholder="Enter electrical conductivity" class="form-input" min="0" step="0.01">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="tab-content" id="tab-constraints">
+                    <div class="form-grid">
+                      <div class="form-group">
+                        <label for="cultivationDuration" class="form-label">Total Cultivation Duration (days) *</label>
+                        <input type="number" id="cultivationDuration" name="cultivationDuration" placeholder="Enter total cultivation duration" class="form-input" min="0" required>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="investmentBudget" class="form-label">Total Investment Budget (₹) *</label>
+                        <input type="number" id="investmentBudget" name="investmentBudget" placeholder="Enter total investment budget" class="form-input" min="0" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-actions">
+                  <button type="button" id="resetButton" class="button button-outline">Reset Fields</button>
+                  <button type="submit" id="submitButton" class="button button-primary">Generate Crop Cycle Plan</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Results Section (Initially Hidden) -->
+          <div id="results-section" class="results-section hidden">
+            <h2 class="section-title">Recommended Crop Cycles</h2>
+            
+            <div class="tabs result-tabs">
+              <div class="tab-list">
+                <button type="button" class="tab-button active" data-tab="cycle1">Cycle 1</button>
+                <button type="button" class="tab-button" data-tab="cycle2">Cycle 2</button>
+                <button type="button" class="tab-button" data-tab="cycle3">Cycle 3</button>
+              </div>
+              
+              <div class="tab-content active" id="tab-cycle1">
+                <!-- Cycle 1 content will be populated by JS -->
+                <div class="cycle-content" id="cycle1-content"></div>
+              </div>
+              
+              <div class="tab-content" id="tab-cycle2">
+                <!-- Cycle 2 content will be populated by JS -->
+                <div class="cycle-content" id="cycle2-content"></div>
+              </div>
+              
+              <div class="tab-content" id="tab-cycle3">
+                <!-- Cycle 3 content will be populated by JS -->
+                <div class="cycle-content" id="cycle3-content"></div>
+              </div>
+            </div>
+            
+            <!-- Comparison Chart -->
+            <div class="card chart-card">
+              <div class="card-header">
+                <h3 class="card-title">Cycle Comparison</h3>
+              </div>
+              <div class="card-content">
+                <div class="chart-container">
+                  <canvas id="comparisonChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- How It Works Section -->
+          <div class="how-it-works">
+            <h2 class="section-title">How Our AI System Works</h2>
+            
+            <div class="feature-grid">
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                </div>
+                <h3 class="feature-title">Data Collection</h3>
+                <p class="feature-description">Input your soil parameters, including nutrient levels, pH, and physical properties.</p>
+              </div>
+              
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                </div>
+                <h3 class="feature-title">AI Analysis</h3>
+                <p class="feature-description">Our AI analyzes your soil data against our database of crop requirements and growth patterns.</p>
+              </div>
+              
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v12"></path><path d="M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path><path d="M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path><path d="M15 6a9 9 0 0 1 0 12"></path><path d="M12 3a12 12 0 0 1 0 18"></path><path d="M9 6a9 9 0 0 0 0 12"></path></svg>
+                </div>
+                <h3 class="feature-title">Cycle Optimization</h3>
+                <p class="feature-description">The system calculates optimal crop sequences based on soil conditions, budget, and time constraints.</p>
+              </div>
+              
+              <div class="feature-card">
+                <div class="feature-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                </div>
+                <h3 class="feature-title">Results & Recommendations</h3>
+                <p class="feature-description">Get detailed recommendations with expected yields, cost breakdowns, and rationale for each crop cycle.</p>
+              </div>
+            </div>
+            
+            <div class="description-text">
+              <p>Our system uses machine learning models trained on thousands of soil samples and crop performance data across different regions. The recommendations are tailored specifically to your soil's unique characteristics and your farming constraints.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@smartcroprecommender" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3 class="footer-heading">Smart Crop Recommender</h3>
+            <p class="footer-text">Helping farmers make data-driven decisions for optimized crop cycles and better yields.</p>
+          </div>
+          
+          <div class="footer-col">
+            <h3 class="footer-heading">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html" class="footer-link">Home</a></li>
+              <li><a href="about.html" class="footer-link">About</a></li>
+              <li><a href="contact.html" class="footer-link">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h3 class="footer-heading">How It Works</h3>
+            <p class="footer-text">Our AI analyzes your soil data and constraints to recommend the best crop cycles for maximum yield and soil health.</p>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p class="copyright">&copy; <span id="currentYear"></span> Smart Crop Recommender. All rights reserved.</p>
+          <div class="policy-links">
+            <a href="#" class="policy-link">Privacy Policy</a>
+            <a href="#" class="policy-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <p>Processing your request...</p>
+  </div>
+  
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden">
+    <div class="toast-content">
+      <p id="toast-message"></p>
+    </div>
+  </div>
 
-  <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
